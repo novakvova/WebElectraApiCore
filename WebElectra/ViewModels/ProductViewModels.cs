@@ -18,6 +18,8 @@ namespace WebElectra.ViewModels
         public string Name { get; set; }
         [Required(ErrorMessage = "Поле не може бути пустим")]
         public decimal Price { get; set; }
+        [Required(ErrorMessage = "Поле не може бути пустим")]
+        public string Image { get; set; }
     }
     public class ProductDeleteVM
     {

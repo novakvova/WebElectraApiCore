@@ -67,7 +67,8 @@ namespace WebElectra.Controllers
             {
                 //new Claim(JwtRegisteredClaimNames.Sub, user.Id)
                 new Claim("id", user.Id.ToString()),
-                new Claim("name", user.UserName)
+                new Claim("name", user.UserName)//,
+
             };
 
             foreach (var role in roles)

@@ -21,6 +21,16 @@ namespace WebElectra.ViewModels
         [Required(ErrorMessage = "Поле не може бути пустим")]
         public string Image { get; set; }
     }
+    public class ProductEditVM
+    {
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Поле не може бути пустим")]
+        public string Name { get; set; }
+        [Required(ErrorMessage = "Поле не може бути пустим")]
+        public decimal Price { get; set; }
+        [Required(ErrorMessage = "Поле не може бути пустим")]
+        public string Image { get; set; }
+    }
     public class ProductDeleteVM
     {
         public int Id { get; set; }

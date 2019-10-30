@@ -34,27 +34,49 @@ namespace WebElectra.Controllers
             _env = env;
             _context = context;
         }
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(int id)
+        {
+            var model = _context.Products
+                .Select(p=>new ProductEditVM
+                {
+                    Id=p.Id,
+                    Image=null,
+                    Name=p.Name,
+                    Price=p.Price
+                })
+                .SingleOrDefault(p => p.Id == id);
+            if(model==null)
+            {
+                return NotFound(new { invalid = "Not found by id" });
+            }
+            //Thread.Sleep(5000);
+            return Ok(model);
+        }
+
         [HttpGet]
         public IActionResult ProductList()
         {
             var model = _context.Products.Select(
                 p => new ProductVM
                 {
-                    Id=p.Id,
-                    Name=p.Name,
-                    Price=p.Price
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price
                 }).ToList();
             Thread.Sleep(5000);
             return Ok(model);
         }
 
-        [Authorize(Roles ="Admin")]
+
+        //[Authorize(Roles ="Admin")]
         [HttpPost]
         public IActionResult Create([FromBody]ProductAddVM model)
         {
             if(!ModelState.IsValid)
             {
-                return BadRequest();
+                var errors = CustomValidator.GetErrorsByModel(ModelState);
+                return BadRequest(errors);
             }
             var fileDestDir = _env.ContentRootPath;
             string dirName = _configuration.GetValue<string>("ImagesPath");
